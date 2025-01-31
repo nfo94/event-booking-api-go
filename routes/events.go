@@ -1,0 +1,54 @@
+package routes
+
+import (
+	"event-booking-api-go/models"
+	"net/http"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
+)
+
+func getEvents(c *gin.Context) {
+	events, err := models.GetAllEvents()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch events"})
+		return
+	}
+
+	c.JSON(http.StatusOK, events)
+}
+
+func createEvent(c *gin.Context) {
+	var event models.Event
+	err := c.ShouldBindJSON(&event)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Could not parse data"})
+		return
+	}
+
+	event.ID = 1
+	event.UserID = 1
+	err = event.Save()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not save event"})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{"message": "Event created"})
+}
+
+func getEvent(c *gin.Context) {
+	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Invalid event ID"})
+		return
+	}
+
+	event, err := models.GetEventbyId(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "Could not fetch event"})
+		return
+	}
+
+	c.JSON(http.StatusOK, event)
+}
