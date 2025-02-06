@@ -2,7 +2,7 @@
 
 Simple API in Go using Gin and SQLite for study purposes.
 
-Example POST request:
+Example `POST` request:
 
 ```bash
 curl -X POST http://localhost:8080/events \
@@ -15,8 +15,14 @@ curl -X POST http://localhost:8080/events \
 }'
 ```
 
-Example GET request:
+Example `GET` request:
 
 ```bash
 curl -X GET http://localhost:8080/events
+```
+
+Example `DELETE` request
+
+```bash
+curl -X DELETE http://localhost:8080/events/2
 ```
