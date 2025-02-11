@@ -14,7 +14,7 @@ type Event struct {
 	UserID      int
 }
 
-func (e Event) Save() error {
+func (e *Event) Save() error {
 	query := `
 		INSERT INTO events (name, description, location, dateTime, user_id)
 		VALUES (?, ?, ?, ?, ?)
@@ -33,7 +33,7 @@ func (e Event) Save() error {
 	return err
 }
 
-func (event Event) Update() error {
+func (e *Event) Update() error {
 	query := `
     UPDATE events
     SET name = ?, description = ?, location = ?, dateTime = ?
@@ -46,12 +46,12 @@ func (event Event) Update() error {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(event.Name, event.Description, event.Location, event.DateTime, event.ID)
+	_, err = stmt.Exec(e.Name, e.Description, e.Location, e.DateTime, e.ID)
 
 	return err
 }
 
-func (event Event) Delete() error {
+func (e *Event) Delete() error {
 	query := `DELETE FROM events WHERE id = ?`
 
 	stmt, err := db.DB.Prepare(query)
@@ -60,7 +60,7 @@ func (event Event) Delete() error {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(event.ID)
+	_, err = stmt.Exec(e.ID)
 	return err
 }
 
