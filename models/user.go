@@ -1,6 +1,9 @@
 package models
 
-import "event-booking-api-go/db"
+import (
+	"event-booking-api-go/db"
+	"event-booking-api-go/utils"
+)
 
 type User struct {
 	ID       int64
@@ -17,7 +20,12 @@ func (u User) Save() error {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(u.Email, u.Password)
+	hashedPassword, err := utils.HashPassword(u.Password)
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(u.Email, hashedPassword)
 	if err != nil {
 		return err
 	}
