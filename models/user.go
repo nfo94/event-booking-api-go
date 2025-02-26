@@ -34,7 +34,8 @@ func (u User) Signup() error {
 	return nil
 }
 
-func (u User) ValidateCredentials() error {
+// Without * we'll only be altering a copy, not the original
+func (u *User) ValidateCredentials() error {
 	query := `SELECT id, password FROM users WHERE email = ?`
 
 	row := db.DB.QueryRow(query, u.Email)
