@@ -10,8 +10,7 @@ import (
 func Authenticate(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	if token == "" {
-		// Avoid sending multiple responses if we have other middlewares to run, avoing
-		// multiple responses
+		// Avoid sending multiple responses if we have other middlewares to run
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Not authorized"})
 		return
 	}
@@ -21,6 +20,8 @@ func Authenticate(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Not authorized"})
 		return
 	}
+
+	c.Set("userId", userId)
 
 	// Ensures that the next request handler in line will execute
 	c.Next()
