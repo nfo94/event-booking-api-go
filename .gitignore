@@ -26,3 +26,6 @@ go.work.sum
 
 # vscode debug
 __debug*
+
+# Local SQLite
+api.db
