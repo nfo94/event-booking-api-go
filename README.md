@@ -1,6 +1,21 @@
 ### event-booking-api-go
 
-Simple API in Go using Gin and SQLite for study purposes.
+Simple API in Go using Gin and SQLite. To run this project clone it in your machine
+and run:
+
+```bash
+go mod tidy
+```
+
+And then run:
+
+```bash
+go run main.go
+```
+
+This will make the API available locally in http://localhost:8080/. If you wish to debug
+this app in VSCode you can use the Debugger with the configuration in `.vscode`. Hit
+`cmd/ctrl+shift+D` and click on play "Launch package".
 
 Example for creating a user:
 
