@@ -45,7 +45,7 @@ an event:
 ```bash
 curl -X POST http://localhost:8080/events \
 -H "Content-Type: application/json" \
--H "Authorization: token" \
+-H "Authorization: token \
 -d '{
   "Name": "Devops na Praia fev/2025",
   "Description": "Encontro de devops no Porto.",
@@ -64,4 +64,20 @@ Example `DELETE` request to delete an event:
 
 ```bash
 curl -X DELETE http://localhost:8080/events/2
+```
+
+Example `POST` request to register for an event:
+
+```bash
+curl -X POST http://localhost:8080/events/1/register \
+-H "Content-Type: application/json" \
+-H "Authorization: token
+```
+
+Example `DELETE` request to cancel a registration for an event:
+
+```bash
+curl -X DELETE http://localhost:8080/events/1/register \
+-H "Content-Type: application/json" \
+-H "Authorization: token
 ```
